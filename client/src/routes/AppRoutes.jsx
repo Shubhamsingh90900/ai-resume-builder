@@ -16,6 +16,8 @@ import TemplatePage from '../pages/TemplatePage.jsx';
 import Template1 from "../components/ai-resume-templates/Template1.jsx";
 import Template2 from '../components/ai-resume-templates/Template2.jsx';
 import Template22 from '../components/ai-resume-templates/Template22.jsx';
+import Template23 from '../components/ai-resume-templates/Template23.jsx';
+
 
 // Not Found
 import NotFound from "../pages/NotFound.jsx";
@@ -31,6 +33,8 @@ const AppRoutes = () => {
           <Route  path='/template1' element={<Template1 />} />
           <Route  path='/template2' element={<Template2/>} />
           <Route  path='/resume-template22' element={<Template22/>} />
+          <Route  path='/resume-template23' element={<Template23/>} />
+
 
   
 
