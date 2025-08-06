@@ -29,13 +29,10 @@ const Template22 = () => {
   };
 
   const addEducation = () => {
-    const updated = [...(localData.education || [])];
-    updated.push({
-      degree: "New Degree",
-      institution: "New Institution",
-      duration: "Year - Year",
-    });
-    handleFieldChange("education", updated);
+    handleFieldChange("education", [
+      ...localData.education,
+      { degree: "New Degree", institution: "New Institution", duration: "Year - Year" },
+    ]);
   };
 
   const removeEducation = (index) => {
@@ -45,14 +42,15 @@ const Template22 = () => {
   };
 
   const addExperience = () => {
-    const updated = [...(localData.experience || [])];
-    updated.push({
-      title: "New Title",
-      companyName: "New Company",
-      date: "Year - Year",
-      accomplishment: ["Achievement 1"],
-    });
-    handleFieldChange("experience", updated);
+    handleFieldChange("experience", [
+      ...localData.experience,
+      {
+        title: "New Title",
+        companyName: "New Company",
+        date: "Year - Year",
+        accomplishment: ["Achievement 1"],
+      },
+    ]);
   };
 
   const removeExperience = (index) => {
@@ -71,7 +69,7 @@ const Template22 = () => {
   };
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#eef2f7" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "#f3f4f6" }}>
       <Navbar />
       <div style={{ display: "flex" }}>
         <Sidebar resumeRef={resumeRef} />
@@ -79,54 +77,53 @@ const Template22 = () => {
           <div
             ref={resumeRef}
             style={{
-              backgroundColor: "#ffffff",
+              backgroundColor: "#fff",
               padding: "2rem",
               width: "100%",
               maxWidth: "850px",
-              boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
               borderRadius: "0.5rem",
               fontFamily: "Arial, sans-serif",
+              border: "1px solid #d1d5db",
             }}
           >
             {/* Header */}
-            <div style={{ display: "flex", alignItems: "center", marginBottom: "1.5rem" }}>
-              <div style={{ flex: 1 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
                 {editMode ? (
                   <>
                     <input
                       value={localData.name}
                       onChange={(e) => handleFieldChange("name", e.target.value)}
-                      style={{ fontSize: "1.75rem", fontWeight: "bold", width: "100%", marginBottom: 5 }}
+                      style={{ fontSize: "1.5rem", fontWeight: "bold" }}
                     />
                     <input
                       value={localData.role}
                       onChange={(e) => handleFieldChange("role", e.target.value)}
-                      style={{ fontSize: "1rem", color: "#555", width: "100%" }}
+                      style={{ fontSize: "1rem", color: "#555" }}
                     />
                   </>
                 ) : (
                   <>
-                    <h1 style={{ fontSize: "1.75rem", fontWeight: "bold" }}>{resumeData.name}</h1>
+                    <h1 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>{resumeData.name}</h1>
                     <h2 style={{ fontSize: "1rem", color: "#555" }}>{resumeData.role}</h2>
                   </>
                 )}
               </div>
-              <div style={{ marginLeft: "1rem", textAlign: "center" }}>
+              <div>
                 {editMode ? (
-                  <label style={{ cursor: "pointer", display: "block" }}>
+                  <label style={{ cursor: "pointer" }}>
                     <img
                       src={profileImage || "https://via.placeholder.com/80"}
                       alt="Profile"
                       style={{
-                        width: "80px",
-                        height: "80px",
-                        borderRadius: "50%",
+                        width: "120px",
+                        height: "120px",
+                        borderRadius: "10px",
                         objectFit: "cover",
-                        border: "2px solid #ccc",
                       }}
                     />
                     <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} />
-                    <p style={{ fontSize: "0.75rem", color: "#1d4ed8" }}>Change</p>
+                    <p style={{ fontSize: "0.75rem", color: "#2563eb" }}>Click to change</p>
                   </label>
                 ) : (
                   <img
@@ -135,40 +132,34 @@ const Template22 = () => {
                       "https://i.pinimg.com/originals/03/d8/db/03d8db5fa74516252ade0c0bc77aeb9e.jpg"
                     }
                     alt="Profile"
-                    style={{
-                      width: "80px",
-                      height: "80px",
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                      border: "2px solid #ccc",
-                    }}
+                    style={{ width: "120px", height: "120px", borderRadius: "10px", objectFit: "cover" }}
                   />
                 )}
               </div>
             </div>
 
-            <hr style={{ marginBottom: "1rem", borderColor: "#ddd" }} />
+            <hr style={{ margin: "1rem 0", borderColor: "#ccc" }} />
 
             {/* Summary */}
-            <div>
-              <h3 style={{ color: "#1d4ed8", fontSize: "1.2rem", fontWeight: 600 }}>Summary</h3>
+            <section>
+              <h1 style={{color:"red", fontWeight:"700", fontSize:"20px"}}>Summary</h1>
               {editMode ? (
                 <textarea
                   value={localData.summary}
                   onChange={(e) => handleFieldChange("summary", e.target.value)}
-                  rows={3}
+                  rows={4}
                   style={{ width: "100%", marginTop: "0.5rem", padding: "0.5rem" }}
                 />
               ) : (
                 <p>{resumeData.summary}</p>
               )}
-            </div>
+            </section>
 
-            <hr style={{ margin: "1.5rem 0", borderColor: "#ddd" }} />
+            <hr style={{ margin: "1rem 0", borderColor: "#ccc" }} />
 
             {/* Contact */}
-            <div>
-              <h3 style={{ color: "#1d4ed8", fontSize: "1.2rem", fontWeight: 600 }}>Contact</h3>
+            <section>
+              <h3 style={{ fontWeight:"700", fontSize:"20px"}}>Contact</h3>
               {["location", "phone", "email", "linkedin"].map((field) =>
                 editMode ? (
                   <input
@@ -176,27 +167,19 @@ const Template22 = () => {
                     value={localData[field]}
                     onChange={(e) => handleFieldChange(field, e.target.value)}
                     placeholder={field}
-                    style={{
-                      width: "100%",
-                      marginTop: "0.25rem",
-                      marginBottom: "0.25rem",
-                      borderBottom: "1px solid #ccc",
-                    }}
+                    style={{ width: "100%", marginTop: "0.25rem", borderBottom: "1px solid #ccc" }}
                   />
                 ) : (
-                  <p key={field}>
-                    <strong>{field.charAt(0).toUpperCase() + field.slice(1)}:</strong>{" "}
-                    {resumeData[field]}
-                  </p>
+                  <p key={field}>{resumeData[field]}</p>
                 )
               )}
-            </div>
+            </section>
 
-            <hr style={{ margin: "1.5rem 0", borderColor: "#ddd" }} />
+            <hr style={{ margin: "1rem 0", borderColor: "#ccc" }} />
 
             {/* Skills */}
-            <div>
-              <h3 style={{ color: "#1d4ed8", fontSize: "1.2rem", fontWeight: 600 }}>Skills</h3>
+            <section>
+              <h3 style={{color:"red", fontWeight:"700", fontSize:"20px"}}>Skills</h3>
               {editMode ? (
                 <textarea
                   value={localData.skills?.join(", ") || ""}
@@ -215,15 +198,15 @@ const Template22 = () => {
                   ))}
                 </ul>
               )}
-            </div>
+            </section>
 
-            <hr style={{ margin: "1.5rem 0", borderColor: "#ddd" }} />
+            <hr style={{ margin: "1rem 0", borderColor: "#ccc" }} />
 
             {/* Education */}
-            <div>
-              <h3 style={{ color: "#1d4ed8", fontSize: "1.2rem", fontWeight: 600 }}>Education</h3>
-              {localData.education?.map((edu, i) => (
-                <div key={i} style={{ marginTop: "0.75rem" }}>
+            <section>
+              <h3 style={{fontWeight:"700", fontSize:"20px"}}>Education</h3>
+              {localData.education.map((edu, i) => (
+                <div key={i}>
                   {editMode ? (
                     <>
                       <input
@@ -253,37 +236,32 @@ const Template22 = () => {
                         }}
                         style={{ width: "100%" }}
                       />
-                      <button
-                        onClick={() => removeEducation(i)}
-                        style={{ color: "#dc2626", fontSize: "0.75rem" }}
-                      >
+                      <button onClick={() => removeEducation(i)} style={{ color: "red" }}>
                         Remove
                       </button>
                     </>
                   ) : (
                     <>
-                      <p style={{ fontWeight: 600 }}>{edu.degree}</p>
-                      <p>
-                        {edu.institution} ({edu.duration})
-                      </p>
+                      <p>{edu.degree}</p>
+                      <p>{edu.institution} ({edu.duration})</p>
                     </>
                   )}
                 </div>
               ))}
               {editMode && (
-                <button onClick={addEducation} style={{ color: "#1d4ed8", marginTop: "0.5rem" }}>
+                <button onClick={addEducation} style={{ marginTop: "0.5rem", color: "#2563eb" }}>
                   + Add Education
                 </button>
               )}
-            </div>
+            </section>
 
-            <hr style={{ margin: "1.5rem 0", borderColor: "#ddd" }} />
+            <hr style={{ margin: "1rem 0", borderColor: "#ccc" }} />
 
             {/* Experience */}
-            <div>
-              <h3 style={{ color: "#1d4ed8", fontSize: "1.2rem", fontWeight: 600 }}>Experience</h3>
-              {localData.experience?.map((exp, i) => (
-                <div key={i} style={{ marginTop: "0.75rem" }}>
+            <section>
+              <h3 style={{color:"red", fontWeight:"700", fontSize:"20px"}}>Experience</h3>
+              {localData.experience.map((exp, i) => (
+                <div key={i}>
                   {editMode ? (
                     <>
                       <input
@@ -323,19 +301,16 @@ const Template22 = () => {
                           handleFieldChange("experience", updated);
                         }}
                         rows={3}
-                        style={{ width: "100%", marginTop: "0.5rem" }}
+                        style={{ width: "100%" }}
                       />
-                      <button
-                        onClick={() => removeExperience(i)}
-                        style={{ color: "#dc2626", fontSize: "0.75rem" }}
-                      >
+                      <button onClick={() => removeExperience(i)} style={{ color: "red" }}>
                         Remove
                       </button>
                     </>
                   ) : (
                     <>
-                      <p style={{ fontWeight: 600 }}>{exp.title} at {exp.companyName}</p>
-                      <p style={{ fontSize: "0.875rem", color: "#4b5563" }}>{exp.date}</p>
+                      <p>{exp.title} at {exp.companyName}</p>
+                      <p>{exp.date}</p>
                       <ul>
                         {exp.accomplishment.map((item, j) => (
                           <li key={j}>{item}</li>
@@ -346,62 +321,42 @@ const Template22 = () => {
                 </div>
               ))}
               {editMode && (
-                <button onClick={addExperience} style={{ color: "#1d4ed8", marginTop: "0.5rem" }}>
+                <button onClick={addExperience} style={{ marginTop: "0.5rem", color: "#2563eb" }}>
                   + Add Experience
                 </button>
               )}
-            </div>
+            </section>
 
-            
-         
-          </div>
-             {!editMode ? (
-              <div style={{ marginTop: "2rem", textAlign: "center" }} className="no-print">
+            {/* Buttons */}
+            <div style={{ textAlign: "center", marginTop: "2rem" }}>
+              {editMode ? (
+                <>
+                  <button
+                    onClick={handleSave}
+                    style={{ backgroundColor: "#10b981", color: "#fff", padding: "0.5rem 1rem", marginRight: "0.5rem" }}
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={handleCancel}
+                    style={{ backgroundColor: "#6b7280", color: "#fff", padding: "0.5rem 1rem" }}
+                  >
+                    Cancel
+                  </button>
+                </>
+              ) : (
                 <button
                   onClick={() => setEditMode(true)}
-                  style={{
-                    backgroundColor: "#2563eb",
-                    color: "#fff",
-                    padding: "0.5rem 1.25rem",
-                    borderRadius: "0.375rem",
-                  }}
+                  style={{ backgroundColor: "#3b82f6", color: "#fff", padding: "0.5rem 1rem" }}
                 >
                   Edit
                 </button>
-              </div>
-            ) : (
-              <div style={{ marginTop: "2rem", textAlign: "center" }} className="no-print">
-                <button
-                  onClick={handleSave}
-                  style={{
-                    backgroundColor: "#16a34a",
-                    color: "#fff",
-                    padding: "0.5rem 1.25rem",
-                    borderRadius: "0.375rem",
-                    marginRight: "0.5rem",
-                  }}
-                >
-                  Save
-                </button>
-                <button
-                  onClick={handleCancel}
-                  style={{
-                    backgroundColor: "#9ca3af",
-                    color: "#fff",
-                    padding: "0.5rem 1.25rem",
-                    borderRadius: "0.375rem",
-                  }}
-                >
-                  Cancel
-                </button>
-              </div>
-            )}
+              )}
+            </div>
+          </div>
         </div>
-        
       </div>
-      
     </div>
-    
   );
 };
 

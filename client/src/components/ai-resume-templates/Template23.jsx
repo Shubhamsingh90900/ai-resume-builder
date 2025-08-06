@@ -18,6 +18,7 @@ const Template23 = () => {
     setLocalData((prev) => ({ ...prev, [field]: value }));
   };
 
+
   const handleSave = () => {
     setResumeData(localData);
     setEditMode(false);
@@ -148,8 +149,8 @@ const Template23 = () => {
                       src={profileImage || "https://via.placeholder.com/80"}
                       alt="Profile"
                       style={{
-                        width: "80px",
-                        height: "80px",
+                        width: "140px",
+                        height: "140px",
                         borderRadius: "50%",
                         objectFit: "cover",
                         border: "2px solid #e5e7eb",
@@ -179,8 +180,8 @@ const Template23 = () => {
                     }
                     alt="Profile"
                     style={{
-                      width: "80px",
-                      height: "80px",
+                      width: "140px",
+                      height: "140px",
                       borderRadius: "50%",
                       objectFit: "cover",
                       border: "2px solid #e5e7eb",
