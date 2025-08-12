@@ -17,6 +17,15 @@ body {
   background-color: #f5f7fb; /* ✅ You can delete this if already using html bg */
 }
 
+/* Hide elements when printing or exporting PDF */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

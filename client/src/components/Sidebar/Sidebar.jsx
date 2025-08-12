@@ -29,38 +29,44 @@ const Sidebar = ({ onEnhance, resumeRef }) => {
 
   const handleDownloadPDF = () => {
     console.log("✅ Download button clicked");
+
     setDownloadRequested(true);
   };
 
   useEffect(() => {
-  if (downloadRequested && resumeRef?.current) {
-    console.log("📄 resumeRef.current:", resumeRef.current);
+    if (downloadRequested && resumeRef?.current) {
+      // console.log("📄 resumeRef.current:", resumeRef.current);
+ document.querySelectorAll(".no-print").forEach(el => {
+      el.style.display = "none";
+    });
+      const element = resumeRef.current;
 
-    const element = resumeRef.current;
+      setTimeout(() => {
+        html2pdf()
+          .set({
+            margin: 0.5,
+            filename: "My_Resume.pdf",
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+          })
+          .from(element)
+          .save()
+          .then(() => {
+            document.querySelectorAll(".no-print").forEach(el => {
+            el.style.display = "";
+          });
+            // console.log("✅ Download triggered!");
+          })
+          .catch((err) => {
+            console.error("❌ PDF Download Error:", err);
+            alert("Something went wrong while generating the PDF.");
+          });
 
-    setTimeout(() => {
-      html2pdf()
-        .set({
-          margin: 0.5,
-          filename: "My_Resume.pdf",
-          image: { type: "jpeg", quality: 0.98 },
-          html2canvas: { scale: 2 },
-          jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
-        })
-        .from(element)
-        .save()
-        .then(() => {
-          console.log("✅ Download triggered!");
-        })
-        .catch((err) => {
-          console.error("❌ PDF Download Error:", err);
-          alert("Something went wrong while generating the PDF.");
-        });
-
-      setDownloadRequested(false);
-    }, 300); // small delay to ensure DOM is rendered
-  }
-}, [downloadRequested, resumeRef]);
+        setDownloadRequested(false);
+      }, 300); // small delay to ensure DOM is rendered
+    }
+  }, [downloadRequested, resumeRef]);
 
   const handleEnhanceSection = async (section) => {
     setEnhancingSection(section);

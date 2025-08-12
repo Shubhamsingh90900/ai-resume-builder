@@ -258,7 +258,7 @@ const Template23 = () => {
                   }}
                 />
               ) : (
-                <ul style={{ paddingLeft: "1.25rem" }}>
+                <ul style={{ paddingLeft: "1.5rem" }}>
                   {resumeData.skills?.map((skill, i) => (
                     <li key={i}>{skill}</li>
                   ))}
@@ -396,7 +396,7 @@ const Template23 = () => {
                       <p style={{ fontSize: "0.875rem", color: "#4b5563" }}>
                         {exp.date}
                       </p>
-                      <ul style={{ paddingLeft: "1.25rem" }}>
+                      <ul style={{ paddingLeft: "1.5rem" }}>
                         {exp.accomplishment.map((item, j) => (
                           <li key={j}>{item}</li>
                         ))}
@@ -416,7 +416,7 @@ const Template23 = () => {
             </div>
 
             {/* Buttons */}
-            <div style={{ marginTop: "2rem", textAlign: "center" }}>
+            <div className="no-print" style={{ marginTop: "2rem", textAlign: "center" }}>
               {editMode ? (
                 <>
                   <button
@@ -444,7 +444,7 @@ const Template23 = () => {
                   </button>
                 </>
               ) : (
-                <button
+                <button 
                   onClick={() => setEditMode(true)}
                   style={{
                     backgroundColor: "#2563eb",

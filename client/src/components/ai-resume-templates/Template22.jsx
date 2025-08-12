@@ -328,7 +328,7 @@ const Template22 = () => {
             </section>
 
             {/* Buttons */}
-            <div style={{ textAlign: "center", marginTop: "2rem" }}>
+            <div  className="no-print" style={{ textAlign: "center", marginTop: "2rem" }} >
               {editMode ? (
                 <>
                   <button
@@ -345,7 +345,7 @@ const Template22 = () => {
                   </button>
                 </>
               ) : (
-                <button
+                <button className="no-print"
                   onClick={() => setEditMode(true)}
                   style={{ backgroundColor: "#3b82f6", color: "#fff", padding: "0.5rem 1rem" }}
                 >
