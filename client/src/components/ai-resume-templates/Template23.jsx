@@ -8,7 +8,7 @@ const Template23 = () => {
   const { resumeData, setResumeData } = useResume();
   const [editMode, setEditMode] = useState(false);
   const [localData, setLocalData] = useState(resumeData);
-  const [profileImage, setProfileImage] = useState(null);
+  const [tempImage, setTempImage] = useState(resumeData.profileImage || "");
 
   useEffect(() => {
     setLocalData(resumeData);
@@ -19,11 +19,14 @@ const Template23 = () => {
   };
 
   const handleSave = () => {
-    setResumeData(localData);
+    const updatedData = { ...localData, profileImage: tempImage };
+    setResumeData(updatedData);
+    setLocalData(updatedData);
     setEditMode(false);
   };
 
   const handleCancel = () => {
+    setTempImage(localData.profileImage);
     setLocalData(resumeData);
     setEditMode(false);
   };
@@ -99,7 +102,7 @@ const Template23 = () => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = () => setProfileImage(reader.result);
+      reader.onload = () => setTempImage(reader.result);
       reader.readAsDataURL(file);
     }
   };
@@ -138,7 +141,7 @@ const Template23 = () => {
                 {editMode ? (
                   <label style={{ cursor: "pointer", display: "block" }}>
                     <img
-                      src={profileImage || "https://via.placeholder.com/140"}
+                      src={editMode ? tempImage : localData.profileImage}
                       alt="Profile"
                       style={{
                         width: "140px",
@@ -167,8 +170,11 @@ const Template23 = () => {
                 ) : (
                   <img
                     src={
-                      profileImage ||
-                      "https://i.pinimg.com/originals/03/d8/db/03d8db5fa74516252ade0c0bc77aeb9e.jpg"
+                      editMode
+                        ? tempImage ||
+                          localData.profileImage ||
+                          "/resumeImg.jpeg"
+                        : localData.profileImage || "/resumeImg.jpeg"
                     }
                     alt="Profile"
                     style={{
@@ -528,7 +534,6 @@ const Template23 = () => {
 
               {/*Achievements*/}
 
- 
               <div style={{ marginTop: "1.5rem" }}>
                 <h3 style={{ fontWeight: "600", fontSize: "1.1rem" }}>
                   Achievements
@@ -619,58 +624,59 @@ const Template23 = () => {
                 )}
               </div>
             </div>
-
-            {/* Buttons */}
-            <div
-              className="no-print"
-              style={{
-                gridColumn: "1 / span 2",
-                marginTop: "2rem",
-                textAlign: "center",
-              }}
-            >
-              {editMode ? (
-                <>
-                  <button
-                    onClick={handleSave}
-                    style={{
-                      backgroundColor: "#16a34a",
-                      color: "#fff",
-                      padding: "0.5rem 1.25rem",
-                      borderRadius: "0.375rem",
-                      marginRight: "0.5rem",
-                    }}
-                  >
-                    Save
-                  </button>
-                  <button
-                    onClick={handleCancel}
-                    style={{
-                      backgroundColor: "#9ca3af",
-                      color: "#fff",
-                      padding: "0.5rem 1.25rem",
-                      borderRadius: "0.375rem",
-                    }}
-                  >
-                    Cancel
-                  </button>
-                </>
-              ) : (
-                <button
-                  onClick={() => setEditMode(true)}
-                  style={{
-                    backgroundColor: "#2563eb",
-                    color: "#fff",
-                    padding: "0.5rem 1.25rem",
-                    borderRadius: "0.375rem",
-                  }}
-                >
-                  Edit
-                </button>
-              )}
-            </div>
           </div>
         </div>
+      </div>
+      {/* Buttons */}
+      <div
+        style={{
+          marginTop: "1.5rem",
+          textAlign: "center",
+          marginLeft: "12rem",
+          marginBottom: "2rem",
+        }}
+      >
+        {editMode ? (
+          <>
+            <button
+              onClick={handleSave}
+              style={{
+                backgroundColor: "#16a34a",
+                color: "#fff",
+                padding: "0.5rem 1.25rem",
+                borderRadius: "0.375rem",
+                margin: "0 0.5rem",
+              }}
+            >
+              Save
+            </button>
+            <button
+              onClick={handleCancel}
+              style={{
+                backgroundColor: "#9ca3af",
+                color: "#fff",
+                padding: "0.5rem 1.25rem",
+                borderRadius: "0.375rem",
+                margin: "0 0.5rem",
+              }}
+            >
+              Cancel
+            </button>
+          </>
+        ) : (
+          <button
+            onClick={() => setEditMode(true)}
+            style={{
+              backgroundColor: "#2563eb",
+              color: "#fff",
+              padding: "0.5rem 1.25rem",
+              borderRadius: "0.375rem",
+              margin: "0 0.5rem",
+            }}
+          >
+            Edit
+          </button>
+        )}
       </div>
     </div>
   );
