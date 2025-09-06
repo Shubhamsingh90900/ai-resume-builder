@@ -9,7 +9,7 @@ import temp6 from '../../assets/images/temp6.png';
 import temp7 from '../../assets/images/temp7.png';
 import temp8 from '../../assets/images/temp8.jpg';
 import temp9 from '../../assets/images/temp9.jpg';
-
+import temp10 from '../../assets/images/temp10.png';
 
 import { useNavigate } from 'react-router-dom';
 const WithoutAiTemp = ({ setActiveStep }) => {
@@ -181,7 +181,7 @@ const WithoutAiTemp = ({ setActiveStep }) => {
     {
       id: 24,
       name: 'Tech Enthusiast',
-      preview: temp8,
+      preview: temp10,
       description: 'Innovative computer science graduate passionate about coding and future technologies.',
       url: '/resume-template24'
     },
